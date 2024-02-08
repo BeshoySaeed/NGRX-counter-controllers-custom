@@ -40,7 +40,6 @@ export const counterReducer = createReducer(
     };
   }),
   on(increaseDecreaseCustom, (state, action) => {
-    console.log(action.value, state);
     return {
       ...state,
       counter: state.counter + +action.value,
