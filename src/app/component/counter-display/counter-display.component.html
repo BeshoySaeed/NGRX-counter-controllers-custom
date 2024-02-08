@@ -1,0 +1,10 @@
+<div class="container">
+  <header>
+    <h1>{{ counter }}</h1>
+  </header>
+  <app-counter-controls
+    (incrementCounter)="incrementCounterParent()"
+    (decrementCounter)="decrementCounterParent()"
+    (resetCounter)="resetCounterParent()"
+  (customCounter)="customParentIncrease($event)"></app-counter-controls>
+</div>
