@@ -1,10 +1,11 @@
 <div class="container">
   <header>
-    <h1>{{ counter }}</h1>
+    <h1>{{ counter$ | async }}</h1>
   </header>
   <app-counter-controls
     (incrementCounter)="incrementCounterParent()"
     (decrementCounter)="decrementCounterParent()"
     (resetCounter)="resetCounterParent()"
-  (customCounter)="customParentIncrease($event)"></app-counter-controls>
+    (customCounter)="customParentIncrease($event)"
+  ></app-counter-controls>
 </div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Store, props } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import {
   decreaseCounter,
   fetchCounter,
@@ -15,14 +16,10 @@ import { getCounter } from 'src/app/ngrx-state/counter-selector';
   styleUrls: ['./counter-display.component.css'],
 })
 export class CounterDisplayComponent {
-  counter!: number;
-  message!: string;
+  counter$ !: Observable<number>;
   constructor(private store: Store<{ counter: number }>) {}
   ngOnInit() {
-    this.store.select(getCounter).subscribe((data: any) => {
-      console.log(data, 'from displaying');
-      this.counter = data;
-    });
+    this.counter$ = this.store.select(getCounter)
   }
 
   incrementCounterParent() {

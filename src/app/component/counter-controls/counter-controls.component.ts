@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { getMessage } from 'src/app/ngrx-state/counter-selector';
 
 @Component({
@@ -13,13 +14,10 @@ export class CounterControlsComponent {
   @Output() resetCounter = new EventEmitter<void>();
   @Output() customCounter = new EventEmitter<any>();
   value!: number;
-  message!: string;
+  message$!: Observable<string>;
   constructor(private store: Store<{ counter: { counter: number } }>) {}
   ngOnInit() {
-    this.store.select(getMessage).subscribe((data: any) => {
-      console.log(data, 'from controllers');
-      this.message = data;
-    });
+    this.message$ = this.store.select(getMessage);
   }
   increment() {
     this.incrementCounter.emit();
