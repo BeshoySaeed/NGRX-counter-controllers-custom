@@ -41,12 +41,12 @@ export class PostComponent {
   openDialog(id?: number | string) {
     if (id) {
       this.store.dispatch(getPostById({ id: id }));
-      this.store
+      var subs = this.store
         .select(getPost)
-        .pipe(take(1))
         .subscribe((data) => {
           this.addPostForm.patchValue(data!);
-        });
+        })
+        .unsubscribe();
     }
     this.dialogAddPost = true;
   }
