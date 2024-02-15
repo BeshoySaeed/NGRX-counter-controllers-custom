@@ -5,7 +5,7 @@ import {
   increaseDecreaseCustom,
   resetCounter,
 } from './counter-action';
-import { InitialCounterState } from './initial-state';
+import { InitialCounterState } from './counter-state';
 import { createReducer, on } from '@ngrx/store';
 
 export const counterReducer = createReducer(

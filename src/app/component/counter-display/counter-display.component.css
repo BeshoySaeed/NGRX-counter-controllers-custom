@@ -1,8 +1,12 @@
 .container {
-  height: 100vh;
+  height: calc(100vh - 70px);
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+.component {
+  margin-left: 40px;
 }

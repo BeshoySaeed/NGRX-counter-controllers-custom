@@ -7,8 +7,8 @@ import {
   increaseCounter,
   increaseDecreaseCustom,
   resetCounter,
-} from 'src/app/ngrx-state/counter-action';
-import { getCounter } from 'src/app/ngrx-state/counter-selector';
+} from 'src/app/ngrx-state/counter/counter-action';
+import { getCounter } from 'src/app/ngrx-state/counter/counter-selector';
 
 @Component({
   selector: 'app-counter-display',
@@ -16,10 +16,10 @@ import { getCounter } from 'src/app/ngrx-state/counter-selector';
   styleUrls: ['./counter-display.component.css'],
 })
 export class CounterDisplayComponent {
-  counter$ !: Observable<number>;
+  counter$!: Observable<number>;
   constructor(private store: Store<{ counter: number }>) {}
   ngOnInit() {
-    this.counter$ = this.store.select(getCounter)
+    this.counter$ = this.store.select(getCounter);
   }
 
   incrementCounterParent() {

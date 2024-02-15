@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { getMessage } from 'src/app/ngrx-state/counter-selector';
+import { getMessage } from 'src/app/ngrx-state/counter/counter-selector';
 
 @Component({
   selector: 'app-counter-controls',

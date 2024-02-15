@@ -13,7 +13,12 @@
     aria-describedby="basic-addon2"
   />
   <div class="input-group-append">
-    <button class="btn btn-outline-secondary" (click)="custom()" type="button">
+    <button
+      class="btn btn-outline-secondary"
+      (click)="custom()"
+      type="button"
+      [disabled]="!value"
+    >
       increment
     </button>
   </div>

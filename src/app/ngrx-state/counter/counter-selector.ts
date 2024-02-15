@@ -1,4 +1,4 @@
-import { CounterState } from './initial-state';
+import { CounterState } from './counter-state';
 import {
   createFeatureSelector,
   createSelector,
