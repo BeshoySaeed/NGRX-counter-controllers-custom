@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { Post } from 'src/app/models/post.mode';
 import {
   addNewPost,
@@ -41,10 +41,12 @@ export class PostComponent {
   openDialog(id?: number | string) {
     if (id) {
       this.store.dispatch(getPostById({ id: id }));
-      this.store.select(getPost).subscribe((data) => {
-        console.log(data);
-        this.addPostForm.patchValue(data!);
-      });
+      this.store
+        .select(getPost)
+        .pipe(take(1))
+        .subscribe((data) => {
+          this.addPostForm.patchValue(data!);
+        });
     }
     this.dialogAddPost = true;
   }
