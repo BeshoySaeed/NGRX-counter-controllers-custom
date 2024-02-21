@@ -6,6 +6,7 @@ import { Post } from 'src/app/models/post.mode';
 import {
   addNewPost,
   deletePost,
+  editPost,
   getPostById,
 } from 'src/app/ngrx-state/posts/post-actions';
 import { getPost, getPosts } from 'src/app/ngrx-state/posts/post-selector';
@@ -19,6 +20,7 @@ export class PostComponent {
   posts$!: Observable<Post[]>;
   dialogAddPost: boolean = false;
   addPostForm!: FormGroup;
+  controlsAction: boolean = false;
   constructor(private store: Store) {
     this.initiateForm();
   }
@@ -35,10 +37,20 @@ export class PostComponent {
     this.posts$ = this.store.select(getPosts);
   }
   onAddPost() {
-    this.store.dispatch(addNewPost({ post: this.addPostForm.value }));
-    this.dialogAddPost = false;
+    if (!this.controlsAction) {
+      this.store.dispatch(addNewPost({ post: this.addPostForm.value }));
+      this.dialogAddPost = false;
+    } else {
+      this.store.dispatch(editPost({ post: this.addPostForm.value }));
+      this.dialogAddPost = false;
+    }
   }
-  openDialog(id?: number | string) {
+  openDialog(action?: string, id?: number | string) {
+    if (action == 'add') {
+      this.controlsAction = false;
+    } else {
+      this.controlsAction = true;
+    }
     if (id) {
       this.store.dispatch(getPostById({ id: id }));
       var subs = this.store
@@ -50,7 +62,14 @@ export class PostComponent {
     }
     this.dialogAddPost = true;
   }
+
+  hideDialog() {
+    this.addPostForm.reset();
+  }
+
   deletePost(id: number | string) {
-    this.store.dispatch(deletePost({ id: id }));
+    if (confirm('Are you sure you want delete the post !')) {
+      this.store.dispatch(deletePost({ id: id }));
+    }
   }
 }

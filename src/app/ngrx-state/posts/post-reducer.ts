@@ -6,10 +6,12 @@ import { Post } from 'src/app/models/post.mode';
 export const postReducer = createReducer(
   postsInitialState,
   on(postActions.addNewPost, (state, action) => {
-    console.log(action);
+    let post: Post = { ...action.post };
+    console.log(post);
+    post.id = state.postsList.length + 1;
     return {
       ...state,
-      postsList: [...state.postsList, action.post],
+      postsList: [...state.postsList, post],
     };
   }),
   on(postActions.deletePost, (state, action) => {
@@ -27,5 +29,20 @@ export const postReducer = createReducer(
       ...state,
       post: post ? { ...post } : null,
     };
+  }),
+  on(postActions.editPost, (state, action) => {
+    const index = state.postsList.findIndex((x) => x.id === action.post.id);
+    if (index !== -1) {
+      const updatedPostsList = [...state.postsList];
+      updatedPostsList[index] = { ...action.post };
+      return {
+        ...state,
+        postsList: updatedPostsList,
+      };
+    } else {
+      return {
+        ...state,
+      };
+    }
   })
 );

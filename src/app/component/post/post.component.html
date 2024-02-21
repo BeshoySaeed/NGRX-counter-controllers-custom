@@ -1,5 +1,5 @@
 <div class="container">
-  <a class="btn btn-primary my-4" (click)="openDialog()">Add new post</a>
+  <a class="btn btn-primary my-4" (click)="openDialog('add')">Add new post</a>
   <table class="table" *ngIf="posts$ | async as postsData">
     <thead>
       <tr>
@@ -15,20 +15,25 @@
         <td>{{ post.title }}</td>
         <td>{{ post.description }}</td>
         <td>
-          <a style="cursor: pointer" (click)="deletePost(post.id)">Delete</a>
-          <a style="cursor: pointer" (click)="openDialog(post.id)">edit</a>
+          <a style="cursor: pointer" (click)="deletePost(post.id)"
+            ><i class="fa-solid fa-trash"></i
+          ></a>
+          <a style="cursor: pointer" (click)="openDialog('edit', post.id)"
+            ><i class="fa-solid fa-pen"></i
+          ></a>
         </td>
       </tr>
     </ng-container>
   </table>
 </div>
 
-<p-dialog header="" [(visible)]="dialogAddPost" [style]="{ width: '50 vw' }">
+<p-dialog
+  header=""
+  [(visible)]="dialogAddPost"
+  [style]="{ width: '50 vw' }"
+  (onHide)="hideDialog()"
+>
   <form [formGroup]="addPostForm" (ngSubmit)="onAddPost()">
-    <div class="input-group">
-      <label>Id</label>
-      <input pInputText type="text" formControlName="id" />
-    </div>
     <div class="input-group">
       <label>title</label>
       <input pInputText type="text" formControlName="title" />
